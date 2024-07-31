@@ -1,9 +1,5 @@
-import Button from "./components/Button/Button";
 import Card from "./components/Card/Card";
-import ProductImg from "../public/product-img.png";
-import MountainBicycle from "../public/mountain-bicycle3.jpg";
 import { useState } from "react";
-import { createPortal } from "react-dom";
 import Modal from "./components/Modal/Modal";
 
 const productData = [
@@ -38,33 +34,26 @@ const productData = [
 ];
 
 function App() {
-  const [imgInfo, setImgInfo] = useState("");
+  const [imgInfo, setImgInfo] = useState();
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const onClose = () => {
+    setIsModalOpen(false);
+  };
+
+  const onOpen = () => {
+    setIsModalOpen(true);
+  };
 
   return (
     <div className="products-wrap flex flex-wrap gap-10 py-[40px]">
       {productData.map((item, index) => {
-        const { img, title, subtitle, desc, price } = item;
-
         return (
-          <Card
-            key={index}
-            setImgInfo={setImgInfo}
-            setIsModalOpen={setIsModalOpen}
-            img={img}
-            title={title}
-            subtitle={subtitle}
-            desc={desc}
-            price={price}
-          />
+          <Card key={index} setImgInfo={setImgInfo} onOpen={onOpen} {...item} />
         );
       })}
 
-      <Modal
-        imgInfo={imgInfo}
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-      />
+      <Modal imgInfo={imgInfo} isOpen={isModalOpen} onClose={onClose} />
     </div>
   );
 }

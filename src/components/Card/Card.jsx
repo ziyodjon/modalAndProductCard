@@ -1,10 +1,11 @@
+import PropTypes from "prop-types";
 import clsx from "clsx";
 import "./Card.css";
 import Button from "../Button/Button";
 
-export default function Card({
+function Card({
   setImgInfo,
-  setIsModalOpen,
+  onOpen,
   img,
   title,
   subtitle,
@@ -22,7 +23,7 @@ export default function Card({
             text={title}
             onClick={(e) => {
               setImgInfo(e);
-              setIsModalOpen(true);
+              onOpen();
             }}
           />
         </div>
@@ -52,3 +53,16 @@ export default function Card({
     </div>
   );
 }
+
+Card.propTypes = {
+  setImgInfo: PropTypes.func,
+  onOpen: PropTypes.func,
+  img: PropTypes.string,
+  title: PropTypes.string,
+  subtitle: PropTypes.string,
+  desc: PropTypes.string,
+  price: PropTypes.string,
+  classes: PropTypes.string,
+};
+
+export default Card;
